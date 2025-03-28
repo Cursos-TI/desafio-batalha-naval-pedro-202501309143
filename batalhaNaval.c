@@ -1,40 +1,83 @@
 #include <stdio.h>
 
-// Desafio Batalha Naval - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
-// Siga os comentários para implementar cada parte do desafio.
+#define TAMANHO_TABULEIRO 10
+#define TAMANHO_NAVIO 3
+
+// Função para inicializar o tabuleiro com água (0)
+void inicializarTabuleiro(int tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO]) {
+    for (int linha = 0; linha < TAMANHO_TABULEIRO; linha++) {
+        for (int coluna = 0; coluna < TAMANHO_TABULEIRO; coluna++) {
+            tabuleiro[linha][coluna] = 0;
+        }
+    }
+}
+
+// Função para posicionar navio horizontal
+void posicionarNavioHorizontal(int tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO], int linha, int coluna) {
+    // Verificar se o navio cabe no tabuleiro horizontalmente
+    if (coluna + TAMANHO_NAVIO > TAMANHO_TABULEIRO) {
+        printf("Erro: Navio horizontal não cabe no tabuleiro!\n");
+        return;
+    }
+
+    // Posicionar navio horizontal
+    for (int i = 0; i < TAMANHO_NAVIO; i++) {
+        tabuleiro[linha][coluna + i] = 3;
+    }
+}
+
+// Função para posicionar navio vertical
+void posicionarNavioVertical(int tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO], int linha, int coluna) {
+    // Verificar se o navio cabe no tabuleiro verticalmente
+    if (linha + TAMANHO_NAVIO > TAMANHO_TABULEIRO) {
+        printf("Erro: Navio vertical não cabe no tabuleiro!\n");
+        return;
+    }
+
+    // Posicionar navio vertical
+    for (int i = 0; i < TAMANHO_NAVIO; i++) {
+        tabuleiro[linha + i][coluna] = 3;
+    }
+}
+
+// Função para exibir o tabuleiro
+void exibirTabuleiro(int tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO]) {
+    printf("\nTabuleiro de Batalha Naval:\n");
+    
+    // Imprimir cabeçalho de colunas
+    printf("  ");
+    for (int c = 0; c < TAMANHO_TABULEIRO; c++) {
+        printf("%d ", c);
+    }
+    printf("\n");
+
+    // Imprimir tabuleiro
+    for (int linha = 0; linha < TAMANHO_TABULEIRO; linha++) {
+        // Imprimir número da linha
+        printf("%d ", linha);
+
+        for (int coluna = 0; coluna < TAMANHO_TABULEIRO; coluna++) {
+            printf("%d ", tabuleiro[linha][coluna]);
+        }
+        printf("\n");
+    }
+}
 
 int main() {
-    // Nível Novato - Posicionamento dos Navios
-    // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
-    // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
-    // Sugestão: Utilize `printf` para exibir as coordenadas de cada parte dos navios.
+    // Declarar tabuleiro
+    int tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
 
-    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
-    // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
-    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
-    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
+    // Inicializar tabuleiro com água
+    inicializarTabuleiro(tabuleiro);
 
-    // Nível Mestre - Habilidades Especiais com Matrizes
-    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
-    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
-    // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
+    // Posicionar navio horizontal na linha 2, começando na coluna 3
+    posicionarNavioHorizontal(tabuleiro, 2, 3);
 
-    // Exemplos de exibição das habilidades:
-    // Exemplo para habilidade em cone:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 1 1 1 1 1
-    
-    // Exemplo para habilidade em octaedro:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 0 0 1 0 0
+    // Posicionar navio vertical na coluna 7, começando na linha 5
+    posicionarNavioVertical(tabuleiro, 5, 7);
 
-    // Exemplo para habilidade em cruz:
-    // 0 0 1 0 0
-    // 1 1 1 1 1
-    // 0 0 1 0 0
+    // Exibir tabuleiro
+    exibirTabuleiro(tabuleiro);
 
     return 0;
 }
